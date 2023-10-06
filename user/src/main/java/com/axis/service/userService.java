@@ -24,12 +24,11 @@ public class userService {
 	public boolean signUp(User user) {
 		try {
 
-			User userCheck = userDao.getUserByUsername(user.getUsername());
+			User userCheck = userDao.findUserByEmail(user.getEmail());
 			
 			if (Objects.isNull(user))
 				return false;
-			else if (user.getEmail().isEmpty() || user.getName().isEmpty() || user.getPhoneNumber().isEmpty()
-					|| user.getUsername().isEmpty()) {
+			else if (user.getEmail().isEmpty() || user.getName().isEmpty() || user.getPhoneNumber().isEmpty()) {
 				return false;
 			} else {
 				
@@ -37,6 +36,7 @@ public class userService {
 					user.setRole("user");
 					user.setStatus("true");
 
+					
 					userDao.save(user);
 					return true;
 				} else return false;
@@ -51,11 +51,11 @@ public class userService {
 	public ResponseEntity<String> logIn(Map<String, String> map) {
 		try {
 
-			String username = map.get("username");
+			String username = map.get("email");
 
 			String password = map.get("password");
 
-			User user = userDao.getUserByUsername(username);
+			User user = userDao.findUserByEmail(username);
 
 			if (Objects.isNull(user)) {
 				return new ResponseEntity<String>("No user found by this username", HttpStatus.BAD_REQUEST);

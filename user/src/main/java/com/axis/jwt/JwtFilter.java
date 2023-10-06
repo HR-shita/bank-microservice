@@ -131,7 +131,7 @@ public class JwtFilter extends OncePerRequestFilter {
 	}
 	
 	public User getUserDetails() {
-		User user = userDao.getUserByUsername(getCurrentUser());
+		User user = userDao.findUserByEmail(getCurrentUser());
 		return user;
 	}
 

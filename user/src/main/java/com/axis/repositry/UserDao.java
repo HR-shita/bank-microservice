@@ -8,6 +8,6 @@ import com.axis.model.User;
 @Repository
 public interface UserDao extends JpaRepository<User, Integer> {
 	
-	public User getUserByUsername(String username);
+	public User findUserByEmail(String email);
 	
 }
